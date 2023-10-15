@@ -132,7 +132,7 @@ class CustomModel(nn.Module):
         self.batch_cnt += 1
 
         input_sentences = self.generate(df)
-        target_sentences = [sentence for sentence in df['summary']]
+        target_sentences = [sentence for sentence in df.iloc[:, 1]]
 
         df_len = len(df)
         cnt_prev, cnt, cntO = ((self.batch_cnt-1) * self.batch_size),0,0
