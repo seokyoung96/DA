@@ -68,6 +68,7 @@ class CustomModel(nn.Module):
 
         if dropout:
             self.model.dropout = dropout
+        # 수정
 
         # encoder freezing
         for param in self.model.get_encoder().parameters():
