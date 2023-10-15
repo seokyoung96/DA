@@ -55,11 +55,12 @@ class CustomDataset(Dataset):
 
 
 class CustomModel(nn.Module):
-    def __init__(self, custom_dataset, model_name, device, decoder_layers=6, dropout=None):
+    def __init__(self, custom_dataset, model_name, device, tokenizer, decoder_layers=6, dropout=None):
         super().__init__()
 
         self.custom_dataset = custom_dataset
         self.device = device
+        self.tokenizer = tokenizer
 
         config = MarianConfig.from_pretrained(model_name)
 
@@ -99,7 +100,7 @@ class CustomModel(nn.Module):
 
         output_sentences = []
         for output in outputs:
-            output_sentences.append(tokenizer.decode(output, skip_special_tokens=True))
+            output_sentences.append(self.tokenizer.decode(output, skip_special_tokens=True))
 
         return output_sentences
 
