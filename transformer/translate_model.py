@@ -67,7 +67,7 @@ class CustomModel(nn.Module):
         self.model = AutoModelForSeq2SeqLM.from_pretrained(model_name, config = config)
 
         if dropout:
-        self.model.dropout = dropout
+            self.model.dropout = dropout
 
         # encoder freezing
         for param in self.model.get_encoder().parameters():
