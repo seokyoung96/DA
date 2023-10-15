@@ -55,10 +55,11 @@ class CustomDataset(Dataset):
 
 
 class CustomModel(nn.Module):
-    def __init__(self, custom_dataset, model_name, decoder_layers=6, dropout=None):
+    def __init__(self, custom_dataset, model_name, device, decoder_layers=6, dropout=None):
         super().__init__()
 
         self.custom_dataset = custom_dataset
+        self.device = device
 
         config = MarianConfig.from_pretrained(model_name)
 
@@ -94,7 +95,7 @@ class CustomModel(nn.Module):
 
     def generate(self, df):
         input_ids = self.custom_dataset.get_input_ids(df)
-        outputs = self.model.generate(input_ids.to(device), max_length=512)
+        outputs = self.model.generate(input_ids.to(self.device), max_length=512)
 
         output_sentences = []
         for output in outputs:
